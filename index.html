@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astryn Resell Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="auth-view" class="auth-view">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <div class="logo-mark">A</div>
+        <h1>Astryn Resell Portal</h1>
+        <p>License management &amp; authentication for your applications</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" data-auth-tab="login">Login</button>
+        <button type="button" class="auth-tab" data-auth-tab="register">Register</button>
+      </div>
+
+      <form id="login-form" class="auth-form">
+        <label>
+          <span>Username</span>
+          <input type="text" id="login-username" autocomplete="username" required>
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" id="login-password" autocomplete="current-password" required>
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+      </form>
+
+      <form id="register-form" class="auth-form hidden">
+        <label>
+          <span>Username</span>
+          <input type="text" id="register-username" autocomplete="username" required minlength="3">
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" id="register-email" autocomplete="email" required>
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" id="register-password" autocomplete="new-password" required minlength="6">
+        </label>
+        <label>
+          <span>Application Name</span>
+          <input type="text" id="register-appname" placeholder="My Application" required>
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+      </form>
+
+      <p id="auth-message" class="auth-message"></p>
+    </div>
+  </div>
+
+  <div id="app-view" class="app-view hidden">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo-mark small">A</div>
+        <div>
+          <strong>Astryn</strong>
+          <span>Resell Portal</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button type="button" class="nav-item active" data-tab="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </button>
+        <button type="button" class="nav-item" data-tab="implement">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Implement
+        </button>
+        <button type="button" class="nav-item" data-tab="licenses">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+          Licenses
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-chip">
+          <div class="avatar" id="sidebar-avatar">U</div>
+          <div>
+            <strong id="sidebar-username">user</strong>
+            <span id="sidebar-appname">App</span>
+          </div>
+        </div>
+        <button type="button" id="logout-btn" class="btn btn-ghost btn-block">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h2 id="page-title">Dashboard</h2>
+          <p id="page-subtitle">Overview of your application credentials</p>
+        </div>
+        <div class="topbar-badge">Free Reseller Plan</div>
+      </header>
+
+      <section id="tab-dashboard" class="tab-panel active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Total Licenses</span>
+            <strong id="stat-total-licenses">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Unused</span>
+            <strong id="stat-unused-licenses">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Used</span>
+            <strong id="stat-used-licenses">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Banned</span>
+            <strong id="stat-banned-licenses">0</strong>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Application Credentials</h3>
+            <button type="button" class="btn btn-ghost btn-sm" id="regenerate-secret-btn">Regenerate Secret</button>
+          </div>
+          <div class="credential-grid">
+            <div class="credential-item">
+              <span>Owner ID</span>
+              <div class="copy-row">
+                <code id="cred-owner-id"></code>
+                <button type="button" class="copy-btn" data-copy="cred-owner-id">Copy</button>
+              </div>
+            </div>
+            <div class="credential-item">
+              <span>Application Name</span>
+              <div class="copy-row">
+                <code id="cred-app-name"></code>
+                <button type="button" class="copy-btn" data-copy="cred-app-name">Copy</button>
+              </div>
+            </div>
+            <div class="credential-item">
+              <span>Application Secret</span>
+              <div class="copy-row">
+                <code id="cred-app-secret"></code>
+                <button type="button" class="copy-btn" data-copy="cred-app-secret">Copy</button>
+              </div>
+            </div>
+            <div class="credential-item">
+              <span>Application Version</span>
+              <div class="copy-row">
+                <code id="cred-app-version">1.0</code>
+                <button type="button" class="copy-btn" data-copy="cred-app-version">Copy</button>
+              </div>
+            </div>
+            <div class="credential-item full">
+              <span>API Endpoint</span>
+              <div class="copy-row">
+                <code id="cred-api-endpoint"></code>
+                <button type="button" class="copy-btn" data-copy="cred-api-endpoint">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-implement" class="tab-panel">
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Your Implementation Details</h3>
+            <p>Use these values in your client application to connect to Astryn Resell Portal.</p>
+          </div>
+          <div class="implement-info">
+            <div class="info-row"><span>Owner ID</span><code id="impl-owner-id"></code></div>
+            <div class="info-row"><span>App Name</span><code id="impl-app-name"></code></div>
+            <div class="info-row"><span>App Secret</span><code id="impl-app-secret"></code></div>
+            <div class="info-row"><span>Version</span><code>1.0</code></div>
+            <div class="info-row"><span>API URL</span><code id="impl-api-url"></code></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Code Examples</h3>
+            <div class="lang-tabs">
+              <button type="button" class="lang-tab active" data-lang="csharp">C#</button>
+              <button type="button" class="lang-tab" data-lang="cpp">C++</button>
+              <button type="button" class="lang-tab" data-lang="python">Python</button>
+              <button type="button" class="lang-tab" data-lang="javascript">JavaScript</button>
+            </div>
+          </div>
+          <pre class="code-block"><code id="code-example"></code></pre>
+          <button type="button" class="btn btn-primary" id="copy-code-btn">Copy Code</button>
+        </div>
+      </section>
+
+      <section id="tab-licenses" class="tab-panel">
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Create License Keys</h3>
+            <p>Generate unlimited license keys for free. Same duration options as KeyAuth.</p>
+          </div>
+
+          <form id="license-form" class="license-form">
+            <div class="form-grid">
+              <label>
+                <span>License Amount</span>
+                <input type="number" id="license-amount" min="1" max="100" value="1" required>
+              </label>
+              <label>
+                <span>License Mask</span>
+                <input type="text" id="license-mask" value="ASTRYN-****-****-****" required>
+              </label>
+              <label>
+                <span>Subscription Level</span>
+                <input type="number" id="license-level" min="1" value="1" required>
+              </label>
+              <label>
+                <span>Expiry Unit</span>
+                <select id="license-expiry-unit" required>
+                  <option value="lifetime">Lifetime</option>
+                  <option value="minutes">Minutes</option>
+                  <option value="hours">Hours</option>
+                  <option value="days" selected>Days</option>
+                  <option value="weeks">Weeks</option>
+                  <option value="months">Months</option>
+                  <option value="years">Years</option>
+                </select>
+              </label>
+              <label>
+                <span>Expiry Duration</span>
+                <input type="number" id="license-expiry-duration" min="1" value="30" required>
+              </label>
+              <label class="full">
+                <span>License Note</span>
+                <input type="text" id="license-note" placeholder="Optional note for identification">
+              </label>
+            </div>
+
+            <div class="checkbox-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="license-lowercase" checked>
+                Lowercase letters
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="license-uppercase" checked>
+                Uppercase letters
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Generate Licenses</button>
+          </form>
+
+          <div id="generated-keys" class="generated-keys hidden">
+            <h4>Generated Keys</h4>
+            <textarea id="generated-keys-output" readonly rows="6"></textarea>
+            <button type="button" class="btn btn-ghost btn-sm" id="copy-generated-keys">Copy All Keys</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Your Licenses</h3>
+            <div class="panel-actions">
+              <input type="search" id="license-search" placeholder="Search licenses..." class="search-input">
+              <button type="button" class="btn btn-ghost btn-sm" id="export-licenses-btn">Export</button>
+              <button type="button" class="btn btn-danger btn-sm" id="delete-unused-btn">Delete Unused</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>License Key</th>
+                  <th>Status</th>
+                  <th>Level</th>
+                  <th>Expiry</th>
+                  <th>Note</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="licenses-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
