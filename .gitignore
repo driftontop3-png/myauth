@@ -1,18 +1,39 @@
-node_modules/
-.vercel/
-.env
-.env.local
-.env*.local
-
-# Client build artifacts
-client/**/.vs/
-client/**/x64/
-client/**/SofMainFN/
-client/**/*.exe
-client/**/*.pdb
-client/**/*.obj
-client/**/*.log
-client/**/*.tlog
-client/**/*.recipe
-client/**/*.idb
-client/**/*.ilk
+node_modules/
+
+.vercel/
+
+.env
+
+.env.local
+
+.env*.local
+
+
+
+# Client build artifacts
+
+client/**/.vs/
+
+client/**/x64/
+
+client/**/SofMainFN/
+
+client/**/*.exe
+
+client/**/*.pdb
+
+client/**/*.obj
+
+client/**/*.log
+
+client/**/*.tlog
+
+client/**/*.recipe
+
+client/**/*.idb
+
+client/**/*.ilk
+
+# Nested git repo folder (ignore broken submodule)
+AstrynAuth Client/
+
